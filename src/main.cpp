@@ -5,15 +5,15 @@
 template <class T>
 void print_grid(RollingGridPtr<T> grid_ptr)
 {
-    for (size_t y = 0; y < grid_ptr->m_size_y; y++)
+    for (size_t y = 0; y < grid_ptr->size_y(); y++)
     {
-        for (size_t x = 0; x < grid_ptr->m_size_x; x++)
+        for (size_t x = 0; x < grid_ptr->size_x(); x++)
         {
-            printf("% 4d", (*grid_ptr)(x, y, 0));
+            auto val = (*grid_ptr)(x, y, 0);
+            printf("% 4d", val);
         }
         printf("\n");
-    }
-        
+    }   
 }
 
 int main(int argc, char* argv[])
@@ -26,9 +26,20 @@ int main(int argc, char* argv[])
     }
     
     print_grid(grid_ptr);
+    printf("\n");
+    grid_ptr->print_buffer();
 
     grid_ptr->roll_clear(-2, 1, 0, 0);
 
-    printf("\nAfter:\n");
+    printf("\nAfter roll 1:\n");
     print_grid(grid_ptr);
+    printf("\n");
+    grid_ptr->print_buffer();
+
+    grid_ptr->roll_clear(1, 0, 0, 0);
+
+    printf("\nAfter roll 2:\n");
+    print_grid(grid_ptr);
+    printf("\n");
+    grid_ptr->print_buffer();
 }
